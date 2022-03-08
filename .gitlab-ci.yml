@@ -1,17 +1,5 @@
-stages:
-  - prebuildcheck
-  - prebuild
-  - build
-  - test
-  - deploy
-
 check_build_base:
   tags:
-    - ubuntu
-  stage: prebuildcheck
+    - yimingci
   script:
-    - echo "hello world"
-  only:
-    - merge_requests
-    - main
-  allow_failure: false
+    - echo hello world
