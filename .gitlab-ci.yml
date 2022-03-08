@@ -1,0 +1,15 @@
+stages:
+  - prebuildcheck
+  - prebuild
+  - build
+  - test
+  - deploy
+
+check_build_base:
+  stage: prebuildcheck
+  script:
+    - echo "hello world"
+  only:
+    - merge_requests
+    - main
+  allow_failure: false

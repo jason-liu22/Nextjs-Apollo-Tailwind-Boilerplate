@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { LockClosedIcon } from "@heroicons/react/solid";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { MeDocument, useChangePasswordMutation } from "generated/graphql";
 import { toErrorMap } from "utils/toErrorMap";
