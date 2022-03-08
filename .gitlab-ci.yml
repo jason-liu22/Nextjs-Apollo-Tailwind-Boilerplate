@@ -6,6 +6,8 @@ stages:
   - deploy
 
 check_build_base:
+  tags:
+    - ubuntu
   stage: prebuildcheck
   script:
     - echo "hello world"
