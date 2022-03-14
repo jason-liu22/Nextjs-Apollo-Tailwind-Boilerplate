@@ -5,7 +5,7 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { MeDocument, useLoginMutation } from "generated/graphql";
+import { MeDocument, MeQuery, useLoginMutation } from "generated/graphql";
 import { toErrorMap } from "utils/toErrorMap";
 import { Layout } from "components/Layout";
 
@@ -13,6 +13,17 @@ interface LoginProps {}
 
 const Login: React.FC<LoginProps> = ({}) => {
   const [userLogin] = useLoginMutation();
+  // {
+  // update(cache, { data }) {
+  //   cache.modify({
+  //     fields: {
+  //       me(meData) {
+  //         console.log(meData, data);
+  //       },
+  //     },
+  //   });
+  // },
+  // }
   const router = useRouter();
 
   return (
@@ -42,7 +53,17 @@ const Login: React.FC<LoginProps> = ({}) => {
               onSubmit={async (values, { setErrors }) => {
                 const response = await userLogin({
                   variables: values,
-                  refetchQueries: [{ query: MeDocument }],
+                  update: (cache, { data }) => {
+                    // const meData = cache.readQuery<MeQuery>({
+                    //   query: MeDocument,
+                    // });
+                    cache.writeQuery<MeQuery>({
+                      query: MeDocument,
+                      data: {
+                        me: data?.login.user,
+                      },
+                    });
+                  },
                 });
                 if (response.data?.login.errors) {
                   setErrors(toErrorMap(response.data.login.errors));

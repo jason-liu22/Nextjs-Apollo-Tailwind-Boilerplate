@@ -52,7 +52,7 @@ const Home: NextPage<HomePageProps> = () => {
                 {data?.posts.posts.map((post) => (
                   <NextLink key={`post_${post.id}`} href={`/posts/${post.id}`}>
                     <a className="group">
-                      <div className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
+                      <div className="bg-gray-200 rounded-lg overflow-hidden">
                         <Image
                           width="280"
                           height="320"

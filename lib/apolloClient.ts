@@ -11,6 +11,8 @@ import { concatPagination } from "@apollo/client/utilities";
 import { onError } from "@apollo/client/link/error";
 import deepMerge from "deepmerge";
 import isEqual from "lodash/isEqual";
+import { PaginatedPosts } from "generated/graphql";
+import { KeyFieldsFunction } from "@apollo/client/cache/inmemory/policies";
 
 export const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__";
 
@@ -42,17 +44,7 @@ function createApolloClient() {
     link: from([errorLink, httpLink]),
     connectToDevTools: true,
     cache: new InMemoryCache({
-      // typePolicies: {
-      //   Query: {
-      //     fields: {
-      //       posts: concatPagination(),
-      //     },
-      //   },
-      // },
       typePolicies: {
-        // PaginatedPosts: {
-        //   keyFields: ["posts", "hasMore"],
-        // },
         // Query: {
         //   fields: {
         //     posts: concatPagination(),
@@ -69,6 +61,11 @@ function createApolloClient() {
             },
           },
         },
+        // Mutation: {
+        //   fields: {
+        //     login: {},
+        //   },
+        // },
       },
     }),
   });

@@ -9,5 +9,6 @@ export const useAuth = () => {
     if (!loading && !data?.me) {
       router.push(`/login?next=${router.pathname}`);
     }
-  }, [data, loading, router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, loading]);
 };
